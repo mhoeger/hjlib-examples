@@ -22,7 +22,7 @@ public class IsolatedExample {
     }
 
     // Uses: isolatedWithReturn
-    public int sumWithIsolationWithReturnValue(final int[] myArray) throws SuspendableException {
+    public int sumWithIsolationReturnValue(final int[] myArray) throws SuspendableException {
         final int[] sum = {0, 0};
 
         finish(() -> {

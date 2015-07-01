@@ -27,6 +27,7 @@ import static edu.rice.hj.experimental.ModuleZ.*;
 public class TestRunner extends TestCase {
 
     private final int numChunks = 2;
+    private final int[] intArray = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
     private final char[] multipleHitEurekaArray = "Madam Marsley, must Mixer make movies more mellow?".toCharArray();
     private final char[] searchHit = "m".toCharArray();
 
@@ -51,7 +52,7 @@ public class TestRunner extends TestCase {
             results[1] = sumWithAsyncFinish(start, end);
         });
 
-        assertTrue("Sum: Expected = " + results[0] + ", Actual = " + results[1], results[1]== results[0]);
+        assertTrue("Sum: Expected = " + results[0] + ", Actual = " + results[1], results[1] == results[0]);
 
         System.out.println("Async/Finish test ends.");
 
@@ -91,11 +92,11 @@ public class TestRunner extends TestCase {
         final List[] resultSeq = new List[1];
 
         launchHabaneroApp(() -> {
-            resultPar[0] = searchEureka(multipleHitEurekaArray,  searchHit);
+            resultPar[0] = searchEureka(multipleHitEurekaArray, searchHit);
         });
 
         launchHabaneroApp(() -> {
-            resultSeq[0] = searchSequential(multipleHitEurekaArray,  searchHit);
+            resultSeq[0] = searchSequential(multipleHitEurekaArray, searchHit);
         });
 
         assertTrue("Search Eureka: " + resultPar[0] + " not found in sequential search.", resultSeq[0].contains(resultPar[0]));
@@ -216,9 +217,259 @@ public class TestRunner extends TestCase {
         System.out.println("Engine eureka test ends.");
     }
 
+    // ACTORS TEST
+
     public void testActors() {
         System.out.println("Starting actors");
         launchHabaneroApp(() -> startActors());
+    }
+
+    // PHASERS TEST
+
+    public void testPhaser() {
+        System.out.println("Starting phaser test...");
+
+        PhaserExample ph = new PhaserExample();
+
+        launchHabaneroApp(() -> {
+            ph.synchronizedPrintingWithPhasers();
+        });
+
+        System.out.println("Phaser test ends.");
+    }
+
+    // PLACES/REGIONS TESTS
+
+    public void testPlace() {
+        System.out.println("Starting place test...");
+
+        PlacesRegionsExample pr = new PlacesRegionsExample();
+        final int[][] results = new int[2][];
+
+        launchHabaneroApp(() -> {
+            results[0] = incrementSequential(intArray);
+            results[1] = pr.incrementWithPlace(intArray);
+        });
+
+        assertTrue("Sum: Expected = " + results[0] + ", Actual = " + results[1], results[1] == results[0]);
+
+        System.out.println("Place test ends.");
+    }
+
+    public void testRegions() {
+        System.out.println("Starting regions test...");
+
+        PlacesRegionsExample pr = new PlacesRegionsExample();
+        final int[][] results = new int[2][];
+
+        launchHabaneroApp(() -> {
+            results[0] = incrementSequential(intArray);
+            results[1] = pr.incrementWithIterationRegion(intArray);
+        });
+
+        assertTrue("Sum: Expected = " + results[0] + ", Actual = " + results[1], results[1] == results[0]);
+
+        System.out.println("Regions test ends.");
+    }
+
+    // ISOLATED TESTS
+
+    public void testIsolated() {
+        System.out.println("Starting isolated test...");
+
+        IsolatedExample iso = new IsolatedExample();
+        final int[] results = new int[2];
+
+        launchHabaneroApp(() -> {
+            results[0] = sumArraySequential(intArray);
+            results[1] = iso.sumWithIsolation(intArray);
+        });
+
+        assertTrue("Sum: Expected = " + results[0] + ", Actual = " + results[1], results[1] == results[0]);
+
+        System.out.println("Isolated test ends.");
+    }
+
+    public void testIsolatedWithReturnValue() {
+        System.out.println("Starting isolated with return value test...");
+
+        IsolatedExample iso = new IsolatedExample();
+        final int[] results = new int[2];
+
+        launchHabaneroApp(() -> {
+            results[0] = sumArraySequential(intArray);
+            results[1] = iso.sumWithIsolationReturnValue(intArray);
+        });
+
+        assertTrue("Sum: Expected = " + results[0] + ", Actual = " + results[1], results[1] == results[0]);
+
+        System.out.println("Isolated with return value test ends.");
+    }
+
+    // FUTURE EXAMPLES
+
+    public void testFuture() {
+        System.out.println("Starting future test...");
+
+        FutureExample fut = new FutureExample();
+        final int[] results = new int[2];
+
+        launchHabaneroApp(() -> {
+            results[0] = sumArraySequential(intArray);
+            results[1] = fut.sumWithFuture(intArray);
+        });
+
+        assertTrue("Sum: Expected = " + results[0] + ", Actual = " + results[1], results[1] == results[0]);
+
+        System.out.println("Future test ends.");
+    }
+
+    public void testDataDrivenFuture() {
+        System.out.println("Starting data driven future test...");
+
+        FutureExample fut = new FutureExample();
+        final int[] results = new int[2];
+
+        launchHabaneroApp(() -> {
+            results[0] = sumArraySequential(intArray);
+            results[1] = fut.sumWithDataDrivenFuture(intArray);
+        });
+
+        assertTrue("Sum: Expected = " + results[0] + ", Actual = " + results[1], results[1] == results[0]);
+
+        System.out.println("Data driven future test ends.");
+    }
+
+    // FOR LOOP TESTS
+
+    public void testForall() {
+        System.out.println("Starting forall test...");
+
+        ForLoopExample fl = new ForLoopExample();
+        final int[][] results = new int[2][];
+
+        launchHabaneroApp(() -> {
+            results[0] = incrementSequential(intArray);
+            results[1] = fl.incrementWithForAll(intArray);
+        });
+
+        assertTrue("Sum: Expected = " + results[0] + ", Actual = " + results[1], results[1] == results[0]);
+
+        System.out.println("Forall test ends.");
+    }
+
+    public void testForasync() {
+        System.out.println("Starting forasync test...");
+
+        ForLoopExample fl = new ForLoopExample();
+        final int[][] results = new int[2][];
+
+        launchHabaneroApp(() -> {
+            results[0] = incrementSequential(intArray);
+            results[1] = fl.incrementWithForAsync(intArray);
+        });
+
+        assertTrue("Sum: Expected = " + results[0] + ", Actual = " + results[1], results[1] == results[0]);
+
+        System.out.println("Forasync test ends.");
+    }
+
+    public void testForallChunked() {
+        System.out.println("Starting forallChunked test...");
+
+        ForLoopExample fl = new ForLoopExample();
+        final int[][] results = new int[2][];
+
+        launchHabaneroApp(() -> {
+            results[0] = incrementSequential(intArray);
+            results[1] = fl.incrementWithForAllChunked(intArray, numChunks);
+        });
+
+        assertTrue("Sum: Expected = " + results[0] + ", Actual = " + results[1], results[1] == results[0]);
+
+        System.out.println("ForallChunked test ends.");
+    }
+
+    public void testForasyncChunked() {
+        System.out.println("Starting forasyncChunked test...");
+
+        ForLoopExample fl = new ForLoopExample();
+        final int[][] results = new int[2][];
+
+        launchHabaneroApp(() -> {
+            results[0] = incrementSequential(intArray);
+            results[1] = fl.incrementWithForAsyncChunked(intArray, numChunks);
+        });
+
+        assertTrue("Sum: Expected = " + results[0] + ", Actual = " + results[1], results[1] == results[0]);
+
+        System.out.println("ForasyncChunked test ends.");
+    }
+
+    public void testForseq() {
+        System.out.println("Starting forseq test...");
+
+        ForLoopExample fl = new ForLoopExample();
+        final int[][] results = new int[2][];
+
+        launchHabaneroApp(() -> {
+            results[0] = incrementSequential(intArray);
+            results[1] = fl.incrementWithForSeq(intArray);
+        });
+
+        assertTrue("Sum: Expected = " + results[0] + ", Actual = " + results[1], results[1] == results[0]);
+
+        System.out.println("Forseq test ends.");
+    }
+
+    public void testForallPhased() {
+        System.out.println("Starting forallPhased test...");
+
+        ForLoopExample fl = new ForLoopExample();
+        final int[][] results = new int[2][];
+
+        launchHabaneroApp(() -> {
+            results[0] = incrementTwiceSequential(intArray);
+            results[1] = fl.incrementTwiceWithForAllPhased(intArray);
+        });
+
+        assertTrue("Sum: Expected = " + results[0] + ", Actual = " + results[1], results[1] == results[0]);
+
+        System.out.println("ForallPhased test ends.");
+    }
+
+    public void testForasyncPhased() {
+        System.out.println("Starting forasyncPhased test...");
+
+        ForLoopExample fl = new ForLoopExample();
+        final int[][] results = new int[2][];
+
+        launchHabaneroApp(() -> {
+            results[0] = incrementTwiceSequential(intArray);
+            results[1] = fl.incrementTwiceWithForAsyncPhased(intArray);
+        });
+
+        assertTrue("Sum: Expected = " + results[0] + ", Actual = " + results[1], results[1] == results[0]);
+
+        System.out.println("ForasyncPhased test ends.");
+    }
+
+    // FINISH ACCUMULATORS TEST
+
+    public void testFinishAccumulator() {
+        System.out.println("Starting finish accumulator test...");
+
+        FinishAccumulatorExample fa = new FinishAccumulatorExample();
+        final int[] results = new int [2];
+
+        launchHabaneroApp(() -> {
+            results[0] = sumSequential(0, 10);
+            results[1] = fa.sumWithFinishAccumulator(0, 10);
+        });
+
+        assertTrue("Sum: Expected = " + results[0] + ", Actual = " + results[1], results[1] == results[0]);
+
+        System.out.println("Finish accumulator test ends.");
     }
 
     /*
@@ -475,4 +726,25 @@ public class TestRunner extends TestCase {
         return resultOptions;
     }
 
+    public int[] incrementSequential(final int[] myArray) {
+        for (int i = 0; i < myArray.length; i++) {
+            myArray[i] += 1;
+        }
+        return myArray;
+    }
+
+    public int[] incrementTwiceSequential(final int[] myArray) {
+        for (int i = 0; i < myArray.length; i++) {
+            myArray[i] += 2;
+        }
+        return myArray;
+    }
+
+    public int sumArraySequential(final int[] myArray) {
+        int sum = 0;
+        for (int i = 0; i < myArray.length; i++) {
+            sum += myArray[i];
+        }
+        return sum;
+    }
 }

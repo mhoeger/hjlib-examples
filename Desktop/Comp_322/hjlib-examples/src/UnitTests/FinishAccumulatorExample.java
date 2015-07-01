@@ -11,18 +11,18 @@ import static edu.rice.hj.Module1.*;
  */
 public class FinishAccumulatorExample {
     // Uses: HjFinishAccumulator
-    public int sumWithFinishAccumulator() throws SuspendableException {
+    public int sumWithFinishAccumulator(int start, int end) throws SuspendableException {
         // declare a finish accumulator that uses a sum operation with an int data type
         final HjFinishAccumulator acc = newFinishAccumulator(HjOperator.SUM, int.class);
 
         // must register accumulator to a finish scope
         finish(acc, () -> {
             async(() -> {
-                for (int i = 0; i < 10; i++) {
+                for (int i = start; i < (start + end) / 2; i++) {
                     acc.put(i);
                 }
             });
-            for (int i = 0; i < 10; i++) {
+            for (int i = (start + end) / 2; i <= end; i++) {
                 acc.put(i);
             }
         });

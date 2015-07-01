@@ -42,8 +42,7 @@ public class FutureExample {
     }
 
     // Uses: HjDataDrivenFuture, newDataDrivenFuture()
-    public int sumWithDataDrivenFuture() throws SuspendableException {
-        final int[] myArray = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    public int sumWithDataDrivenFuture(final int[] myArray) throws SuspendableException {
         HjDataDrivenFuture<Integer> sum1 = newDataDrivenFuture();
         HjDataDrivenFuture<Integer> sum2 = newDataDrivenFuture();
         final int[] totalSum = {0};
