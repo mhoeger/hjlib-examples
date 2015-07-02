@@ -251,7 +251,7 @@ public class TestRunner extends TestCase {
             results[1] = pr.incrementWithPlace(intArray);
         });
 
-        assertTrue("Sum: Expected = " + results[0] + ", Actual = " + results[1], results[1] == results[0]);
+        assertTrue("Increment: Expected = " + results[0] + ", Actual = " + results[1], results[1] == results[0]);
 
         System.out.println("Place test ends.");
     }
@@ -267,7 +267,7 @@ public class TestRunner extends TestCase {
             results[1] = pr.incrementWithIterationRegion(intArray);
         });
 
-        assertTrue("Sum: Expected = " + results[0] + ", Actual = " + results[1], results[1] == results[0]);
+        assertTrue("Increment: Expected = " + results[0] + ", Actual = " + results[1], results[1] == results[0]);
 
         System.out.println("Regions test ends.");
     }
@@ -353,7 +353,7 @@ public class TestRunner extends TestCase {
             results[1] = fl.incrementWithForAll(intArray);
         });
 
-        assertTrue("Sum: Expected = " + results[0] + ", Actual = " + results[1], results[1] == results[0]);
+        assertTrue("Increment: Expected = " + results[0] + ", Actual = " + results[1], results[1] == results[0]);
 
         System.out.println("Forall test ends.");
     }
@@ -369,7 +369,7 @@ public class TestRunner extends TestCase {
             results[1] = fl.incrementWithForAsync(intArray);
         });
 
-        assertTrue("Sum: Expected = " + results[0] + ", Actual = " + results[1], results[1] == results[0]);
+        assertTrue("Increment: Expected = " + results[0] + ", Actual = " + results[1], results[1] == results[0]);
 
         System.out.println("Forasync test ends.");
     }
@@ -385,7 +385,7 @@ public class TestRunner extends TestCase {
             results[1] = fl.incrementWithForAllChunked(intArray, numChunks);
         });
 
-        assertTrue("Sum: Expected = " + results[0] + ", Actual = " + results[1], results[1] == results[0]);
+        assertTrue("Increment: Expected = " + results[0] + ", Actual = " + results[1], results[1] == results[0]);
 
         System.out.println("ForallChunked test ends.");
     }
@@ -401,7 +401,7 @@ public class TestRunner extends TestCase {
             results[1] = fl.incrementWithForAsyncChunked(intArray, numChunks);
         });
 
-        assertTrue("Sum: Expected = " + results[0] + ", Actual = " + results[1], results[1] == results[0]);
+        assertTrue("Increment: Expected = " + results[0] + ", Actual = " + results[1], results[1] == results[0]);
 
         System.out.println("ForasyncChunked test ends.");
     }
@@ -417,7 +417,7 @@ public class TestRunner extends TestCase {
             results[1] = fl.incrementWithForSeq(intArray);
         });
 
-        assertTrue("Sum: Expected = " + results[0] + ", Actual = " + results[1], results[1] == results[0]);
+        assertTrue("Increment: Expected = " + results[0] + ", Actual = " + results[1], results[1] == results[0]);
 
         System.out.println("Forseq test ends.");
     }
@@ -433,7 +433,7 @@ public class TestRunner extends TestCase {
             results[1] = fl.incrementTwiceWithForAllPhased(intArray);
         });
 
-        assertTrue("Sum: Expected = " + results[0] + ", Actual = " + results[1], results[1] == results[0]);
+        assertTrue("Increment: Expected = " + results[0] + ", Actual = " + results[1], results[1] == results[0]);
 
         System.out.println("ForallPhased test ends.");
     }
@@ -449,7 +449,7 @@ public class TestRunner extends TestCase {
             results[1] = fl.incrementTwiceWithForAsyncPhased(intArray);
         });
 
-        assertTrue("Sum: Expected = " + results[0] + ", Actual = " + results[1], results[1] == results[0]);
+        assertTrue("Increment: Expected = " + results[0] + ", Actual = " + results[1], results[1] == results[0]);
 
         System.out.println("ForasyncPhased test ends.");
     }
