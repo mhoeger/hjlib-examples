@@ -70,4 +70,12 @@ public class SequentialCheck {
         return sum;
     }
 
+    public int sum2DArraySequential(final int[][] myArray) {
+        int sum = 0;
+        for (int i = 0; i < myArray.length; i++){
+            sum += sumArraySequential(myArray[i]);
+        }
+        return sum;
+    }
+
 }

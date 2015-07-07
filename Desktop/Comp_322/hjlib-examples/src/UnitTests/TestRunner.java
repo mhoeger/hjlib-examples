@@ -43,6 +43,7 @@ public class TestRunner extends TestCase {
     private final FutureExample fut = new FutureExample();
     private final ForLoopExample fl = new ForLoopExample();
     private final ActorExample act = new ActorExample();
+    private final SelectorExample selec = new SelectorExample();
 
     /*
      * Test driving methods
@@ -226,9 +227,53 @@ public class TestRunner extends TestCase {
 
     // ACTORS TEST
 
-    public void testActors() {
-        System.out.println("Starting actors");
-        launchHabaneroApp(() -> act.startActors());
+    public void testActor() {
+
+        System.out.println("Starting actor test...");
+
+        int l = 5;
+        int w = 10;
+
+        int[][] int2DArray = new int[l][w];
+        // Send lots of integers
+        for (int i = 0; i < l; i++) {
+            for (int j = 0; j < w; j++) {
+                int2DArray[i][j] = (i + 1) * (j + 1);
+            }
+        }
+        int[] result = new int[2];
+
+        launchHabaneroApp(() -> {
+            result[0] = act.arraySumWithActor(int2DArray);
+        });
+
+        launchHabaneroApp(() -> {
+            result[1] = check.sum2DArraySequential(int2DArray);
+        });
+
+        assertTrue("Sum: Expected = " + result[1] + ", Actual = " + result[0], result[0] == result[1]);
+
+        System.out.println("Actor test ends.");
+    }
+
+    public void testSelector(){
+
+        System.out.println("Starting selector test...");
+        ArrayList<int[]>[] resultPar = new ArrayList[1];
+
+        launchHabaneroApp(() -> {
+            resultPar[0] = selec.evenPairsWithSelector(intArray);
+        });
+
+        for (int i = 0; i < resultPar[0].size(); i++){
+            int x = resultPar[0].get(i)[0];
+            int y = resultPar[0].get(i)[1];
+            assertTrue("Sum of pair should be even, actual sum of " + x + " and " + y + " is " + (x + y),
+                    (x+y) % 2 == 0);
+        }
+
+        System.out.println("Selector test ends.");
+
     }
 
     // PHASERS TEST
