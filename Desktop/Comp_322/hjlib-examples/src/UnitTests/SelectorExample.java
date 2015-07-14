@@ -22,7 +22,7 @@ public class SelectorExample {
             selector.start();
 
             for (int i = 0; i < myArray.length; i++){
-                selector.send(i % 2, i);
+                selector.send(i % 2, myArray[i]);
             }
 
             // Send to both mailboxes to make sure one is not blocked
@@ -44,7 +44,11 @@ public class SelectorExample {
         private ArrayList<int[]> evenPairs = new ArrayList<>();
 
         protected AddsToEven() {
-            super(2);
+            //Arg1 sets the number of mailboxes to be 2
+            //Arg2 indicates that all code in the body of process() is sequential
+            //Arg3 makes message reading start at mailbox 0 and go upwards. If false, message
+            //reading priority is given to the last read mailbox
+            super(2, true, true);
         }
 
         @Override
@@ -69,6 +73,7 @@ public class SelectorExample {
                     evenPairs.add(temp);
                     previous = null;
                     enableAll();
+                    //enableCorrectMailbox(msg + 1);
                 }
             }
         }

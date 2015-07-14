@@ -30,9 +30,9 @@ public class ActorExample {
             myActor.start();
 
             for (int i = 0; i < arraysToSum.length; i++) {
-                myActor.process(arraysToSum[i]);
+                myActor.send(arraysToSum[i]);
             }
-            myActor.process(myActor.STOP_MSG);
+            myActor.send(myActor.STOP_MSG);
         });
         return finalSum;
     }
@@ -45,15 +45,20 @@ public class ActorExample {
 
         private final Object STOP_MSG = Integer.MAX_VALUE;
         private Integer cumulativeSum = 0;
+        private volatile int count = 0;
 
         ArraySumActor(){
-            super();
+            //The constructor accepts a boolean flag, pAlwaysSequentialBody, that indicates whether
+            //or not the code inside of the body of process() is sequential or not. The default value
+            //is true.
+            super(false);
         }
 
         @Override
         protected void process(Object msg) {
             // Terminate an actor using special a stop message
             if (STOP_MSG.equals(msg)) {
+                tryProcessMessage();
                 setFinalSum(cumulativeSum);
                 exit(); // never forget to terminate an actor
 
@@ -63,22 +68,23 @@ public class ActorExample {
                 HjDataDrivenFuture ddfA = newDataDrivenFuture();
                 HjDataDrivenFuture ddfB = newDataDrivenFuture();
                 final Integer half = arrayMsg.length / 2;
+                System.out.println("processing int array " + count + ": begins with " + arrayMsg[0] + " and is length " + arrayMsg.length);
 
-                System.out.println("int array begins with " + arrayMsg[0] + " and is length " + arrayMsg.length);
-                System.out.println("PAUSE cumsum:" + cumulativeSum);
                 pause();
-                System.out.println("PAUSE cumsum:" + cumulativeSum);
+
+                System.out.println("PAUSED:" + count);
+
+                asyncAwait(ddfA, ddfB, () -> {
+                    cumulativeSum += (Integer) ddfA.get() + (Integer) ddfB.get();
+                    System.out.println("RESUME:" + count++);
+                    resume();
+                });
+
                 async(() -> {
                     ddfA.put(seq.sumArraySequential(Arrays.copyOfRange(arrayMsg, 0, half)));
                 });
                 async(() -> {
                     ddfB.put(seq.sumArraySequential(Arrays.copyOfRange(arrayMsg, half, arrayMsg.length)));
-                });
-
-                asyncAwait(ddfA, ddfB, () -> {
-                    cumulativeSum += (Integer) ddfA.get() + (Integer) ddfB.get();
-                    System.out.println("RESUME !:" + cumulativeSum);
-                    resume();
                 });
 
             // Output an error message for invalid input
