@@ -4,7 +4,9 @@ import edu.rice.hj.api.HjFinishAccumulator;
 import edu.rice.hj.api.HjOperator;
 import edu.rice.hj.api.SuspendableException;
 
-import static edu.rice.hj.Module1.*;
+import static edu.rice.hj.Module1.finish;
+import static edu.rice.hj.Module1.async;
+import static edu.rice.hj.Module1.newFinishAccumulator;
 
 /*
  * Created by Alitha on 6/26/15.

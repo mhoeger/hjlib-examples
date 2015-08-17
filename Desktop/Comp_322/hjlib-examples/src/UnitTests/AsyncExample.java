@@ -4,7 +4,8 @@ import edu.rice.hj.api.HjPhaser;
 import edu.rice.hj.api.HjPhaserMode;
 import edu.rice.hj.api.SuspendableException;
 
-import static edu.rice.hj.Module0.*;
+import static edu.rice.hj.Module0.finish;
+import static edu.rice.hj.Module0.newPhaser;
 import static edu.rice.hj.Module0.asyncPhased;
 import static edu.rice.hj.Module0.next;
 import static edu.rice.hj.Module1.async;

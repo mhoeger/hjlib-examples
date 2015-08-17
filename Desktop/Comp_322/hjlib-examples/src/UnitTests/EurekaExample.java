@@ -1,14 +1,22 @@
 package UnitTests;
 
 import edu.rice.hj.api.SuspendableException;
-import edu.rice.hj.experimental.ModuleZ;
-import edu.rice.hj.experimental.api.*;
+import edu.rice.hj.experimental.api.HjEureka;
+import edu.rice.hj.experimental.api.HjSearchEureka;
+import edu.rice.hj.experimental.api.HjExtremaEureka;
+import edu.rice.hj.experimental.api.HjCountEureka;
+import edu.rice.hj.experimental.api.HjEngineEureka;
+import edu.rice.hj.experimental.api.HjTimerEureka;
 
 import java.util.List;
 
 import static edu.rice.hj.Module1.async;
-import static edu.rice.hj.experimental.ModuleZ.*;
+import static edu.rice.hj.experimental.ModuleZ.finish;
 import static edu.rice.hj.experimental.ModuleZ.newEngineEureka;
+import static edu.rice.hj.experimental.ModuleZ.newSearchEureka;
+import static edu.rice.hj.experimental.ModuleZ.newExtremaEureka;
+import static edu.rice.hj.experimental.ModuleZ.newCountEureka;
+import static edu.rice.hj.experimental.ModuleZ.newTimerEureka;
 
 /**
  * Created by Marie on 7/3/15.
@@ -83,7 +91,6 @@ public class EurekaExample {
         return (Integer) searchWithHjEureka(dataArray, searchHit, resultEureka, checkAgainstNull);
     }
 
-
     /*
     * Searches for searchHit in dataArray according to the behavior of resultEureka (see previous comments). If
     * checkAgainstNull is true, resultEureka.check() should check a null value to produce expected behavior. Otherwise,
@@ -92,7 +99,7 @@ public class EurekaExample {
    */
     public Object searchWithHjEureka(final char[] dataArray, final char[] searchHit, final HjEureka resultEureka, boolean checkAgainstNull) throws SuspendableException {
         final int chunkSize = dataArray.length / numChunks;
-        ModuleZ.finish(resultEureka, () -> {
+        finish(resultEureka, () -> {
             for (int c = 0; c < numChunks; c++) {
                 // perform chunking to increase amount of work done in the loop
                 final int startI = c * chunkSize;

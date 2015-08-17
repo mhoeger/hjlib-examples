@@ -2,11 +2,12 @@ package UnitTests;
 
 import edu.rice.hj.api.HjRegion;
 import edu.rice.hj.api.SuspendableException;
-import edu.rice.hj.runtime.config.HjSystemProperty;
 
-import java.util.Arrays;
-
-import static edu.rice.hj.Module1.*;
+import static edu.rice.hj.Module1.finish;
+import static edu.rice.hj.Module1.asyncNbAt;
+import static edu.rice.hj.Module1.place;
+import static edu.rice.hj.Module1.newRectangularRegion1D;
+import static edu.rice.hj.Module1.forallChunked;
 
 /*
  * Created by Alitha on 6/18/15.

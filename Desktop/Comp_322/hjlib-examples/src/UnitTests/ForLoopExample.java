@@ -1,8 +1,18 @@
 package UnitTests;
 
-import edu.rice.hj.api.*;
+import edu.rice.hj.api.SuspendableException;
 
-import static edu.rice.hj.Module1.*;
+import static edu.rice.hj.Module1.finish;
+import static edu.rice.hj.Module1.forall;
+import static edu.rice.hj.Module1.forasync;
+import static edu.rice.hj.Module1.forallChunked;
+import static edu.rice.hj.Module1.forasyncChunked;
+import static edu.rice.hj.Module1.forseq;
+import static edu.rice.hj.Module1.forallPhased;
+import static edu.rice.hj.Module1.forasyncPhased;
+import static edu.rice.hj.Module1.next;
+import static edu.rice.hj.Module1.signal;
+import static edu.rice.hj.Module1.doWork;
 
 /*
  * Created by Alitha on 6/26/15.

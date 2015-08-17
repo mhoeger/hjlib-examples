@@ -2,7 +2,11 @@ package UnitTests;
 
 import edu.rice.hj.api.SuspendableException;
 
-import static edu.rice.hj.Module2.*;
+import static edu.rice.hj.Module1.finish;
+import static edu.rice.hj.Module1.async;
+import static edu.rice.hj.Module1.forall;
+import static edu.rice.hj.Module2.isolated;
+import static edu.rice.hj.Module2.isolatedWithReturn;
 
 /*
  * Created by Alitha on 6/18/15.

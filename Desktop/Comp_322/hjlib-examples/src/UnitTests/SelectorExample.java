@@ -6,7 +6,6 @@ import edu.rice.hj.experimental.actors.Selector;
 import java.util.ArrayList;
 
 import static edu.rice.hj.Module0.finish;
-import static edu.rice.hj.Module1.async;
 
 /**
  * Created by Marie on 7/4/15.

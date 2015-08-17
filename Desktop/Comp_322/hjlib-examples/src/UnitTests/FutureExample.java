@@ -3,7 +3,12 @@ package UnitTests;
 import edu.rice.hj.api.HjDataDrivenFuture;
 import edu.rice.hj.api.HjFuture;
 import edu.rice.hj.api.SuspendableException;
-import static edu.rice.hj.Module1.*;
+
+import static edu.rice.hj.Module1.finish;
+import static edu.rice.hj.Module1.async;
+import static edu.rice.hj.Module1.future;
+import static edu.rice.hj.Module1.newDataDrivenFuture;
+import static edu.rice.hj.Module1.asyncAwait;
 
 /*
  * Created by Alitha on 6/18/15.
