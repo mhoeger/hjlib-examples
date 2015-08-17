@@ -228,8 +228,7 @@ public class TestRunner extends TestCase {
     // ACTORS TEST
 
     public void testActor() {
-
-        System.out.println("Starting actor test...");
+        System.out.println("Starting actor test... ");
 
         int l = 5;
         int w = 10;
@@ -241,6 +240,7 @@ public class TestRunner extends TestCase {
                 int2DArray[i][j] = (i + 1) * (j + 1);
             }
         }
+
         int[] result = new int[2];
 
         launchHabaneroApp(() -> {
@@ -260,14 +260,27 @@ public class TestRunner extends TestCase {
 
         System.out.println("Starting selector test...");
         ArrayList<int[]>[] resultPar = new ArrayList[1];
+        int[] myArray = new int[30];
+        for (int i = 0; i < 30; i++){
+            if (i < 10)
+                myArray[i] = i;
+            else if (i < 20)
+                myArray[i] = 2*i;
+            else if (i < 28)
+                myArray[i] = 2*i + 1;
+            else
+                myArray[i] = 2*i;
+        }
+
 
         launchHabaneroApp(() -> {
-            resultPar[0] = selec.evenPairsWithSelector(intArray);
+            resultPar[0] = selec.evenPairsWithSelector(myArray);
         });
 
         for (int i = 0; i < resultPar[0].size(); i++){
             int x = resultPar[0].get(i)[0];
             int y = resultPar[0].get(i)[1];
+            System.out.println(x + " + " + y + " = " + (x+y));
             assertTrue("Sum of pair should be even, actual sum of " + x + " and " + y + " is " + (x + y),
                     (x+y) % 2 == 0);
         }
